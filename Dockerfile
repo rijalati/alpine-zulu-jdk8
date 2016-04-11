@@ -12,10 +12,14 @@ RUN apk --update add curl ca-certificates tar \
         && apk add --allow-untrusted /tmp/glibc-2.21-r2.apk
 
 RUN curl -Ls http://cdn.azul.com/zulu/bin/zulu8.13.0.5-jdk8.0.72-linux_x64.tar.gz > /tmp/zulu-jdk8.tar.gz \
+    && curl -Ls http://cdn.azul.com/zcek/bin/ZuluJCEPolicies.zip > /tmp/zulu-crypt.zip \
+    && cd /tmp \
+    && unzip /tmp/zulu-crypt.zip \
     && mkdir -p /opt/jdk \
     && cd /opt/jdk \
     && tar -xzf /tmp/zulu-jdk8.tar.gz \
-    && rm -f /tmp/zulu-jdk8.tar.gz
+    && cp /tmp/ZuluJCEPolicies/* /opt/jdk/jre/lib/security/ \
+    && rm -f /tmp/zulu-jdk8.tar.gz /tmp/zulu-crypt.zip 
 
 ENV JAVA_HOME=/opt/jdk/zulu-jdk8
 ENV PATH=${PATH}:${JAVA_HOME}/bin
