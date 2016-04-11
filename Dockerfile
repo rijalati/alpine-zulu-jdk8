@@ -18,7 +18,7 @@ RUN curl -Ls http://cdn.azul.com/zulu/bin/zulu8.13.0.5-jdk8.0.72-linux_x64.tar.g
     && mkdir -p /opt/jdk \
     && cd /opt/jdk \
     && tar -xzf /tmp/zulu-jdk8.tar.gz \
-    && cp /tmp/ZuluJCEPolicies/* /opt/jdk/jre/lib/security/ \
+    && cp /tmp/ZuluJCEPolicies/* /opt/jdk/zulu-jdk8/jre/lib/security/ \
     && rm -f /tmp/zulu-jdk8.tar.gz /tmp/zulu-crypt.zip 
 
 ENV JAVA_HOME=/opt/jdk/zulu-jdk8
