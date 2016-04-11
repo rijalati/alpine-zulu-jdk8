@@ -13,13 +13,14 @@ RUN apk --update add curl ca-certificates tar \
 
 RUN curl -Ls http://cdn.azul.com/zulu/bin/zulu8.13.0.5-jdk8.0.72-linux_x64.tar.gz > /tmp/zulu-jdk8.tar.gz \
     && curl -Ls http://cdn.azul.com/zcek/bin/ZuluJCEPolicies.zip > /tmp/zulu-crypt.zip \
-    && cd /tmp \
-    && unzip /tmp/zulu-crypt.zip \
     && mkdir -p /opt/jdk \
     && cd /opt/jdk \
     && tar -xzf /tmp/zulu-jdk8.tar.gz \
-    && mv -f /tmp/ZuluJCEPolicies/* /opt/jdk/zulu-jdk8/jre/lib/security/ \
-    && rm -f /tmp/zulu-jdk8.tar.gz /tmp/zulu-crypt.zip
+    && unzip /tmp/zulu-crypt.zip \
+    && mkdir -p /opt/jdk/zulu-jdk8/jre/lib/security/ \
+    && mv -f ZuluJCEPolicies/* /opt/jdk/zulu-jdk8/jre/lib/security/ \
+    && rm -fr ZuluJCEPolicies/ /tmp/zulu-jdk8.tar.gz /tmp/zulu-crypt.zip
+
 
 ENV JAVA_HOME=/opt/jdk/zulu-jdk8
 ENV PATH=${PATH}:${JAVA_HOME}/bin
