@@ -7,9 +7,10 @@ ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
 # Install cURL
-RUN apk --update add curl ca-certificates tar \
-    && curl -Ls https://github.com/andyshinn/alpine-pkg-glibc/releases/download/unreleased/glibc-bin-2.23-r1.apk > /tmp/glibc-bin-2.23-r1.apk \
-    && apk add --allow-untrusted /tmp/glibc-bin-2.23-r1.apk
+RUN apk --update --no-cache add curl ca-certificates tar \
+    && curl -Ls https://raw.githubusercontent.com/andyshinn/alpine-pkg-glibc/master/andyshinn.rsa.pub > /etc/apk/keys/andyshinn.rsa.pub \
+    && curl -Ls https://github.com/andyshinn/alpine-pkg-glibc/releases/download/unreleased/glibc-2.23-r1.apk > /tmp/glibc-2.23-r1.apk \
+    && apk add /tmp/glibc-2.23-r1.apk
 
 RUN curl -Ls http://cdn.azul.com/zulu/bin/zulu8.13.0.5-jdk8.0.72-linux_x64.tar.gz > /tmp/zulu-jdk8.tar.gz \
     && curl -Ls http://cdn.azul.com/zcek/bin/ZuluJCEPolicies.zip > /tmp/zulu-crypt.zip \
