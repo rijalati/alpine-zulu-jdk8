@@ -31,5 +31,5 @@ RUN curl -Ls http://mirrors.koehn.com/apache//ant/binaries/apache-ant-1.9.6-bin.
     && tar -zxf /tmp/apache-ant.tar.gz \
     && rm -f /tmp/apache-ant.tar.gz
 
-ENV ANT_HOME /usr/share/java/apache-ant
+ENV ANT_HOME /usr/share/java/apache-ant/apache-ant-1.9.6
 ENV PATH ${PATH}:${ANT_HOME}/bin
