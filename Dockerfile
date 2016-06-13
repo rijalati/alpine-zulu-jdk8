@@ -26,11 +26,13 @@ RUN curl -Ls http://cdn.azul.com/zulu/bin/zulu8.15.0.1-jdk8.0.92-linux_x64.tar.g
 ENV JAVA_HOME=/opt/jdk/zulu-jdk8
 ENV PATH=${PATH}:${JAVA_HOME}/bin
 
-RUN curl -Ls http://mirrors.koehn.com/apache//ant/binaries/apache-ant-1.9.6-bin.tar.gz > /tmp/apache-ant.tar.gz \
+RUN curl -Ls http://www.gtlib.gatech.edu/pub/apache//ant/binaries/apache-ant-1.9.7-bin.tar.gz > /tmp/apache-ant.tar.gz \
     && mkdir -p /usr/share/java/apache-ant \
     && cd  /usr/share/java/apache-ant \
     && tar -zxf /tmp/apache-ant.tar.gz \
     && rm -f /tmp/apache-ant.tar.gz
 
-ENV ANT_HOME /usr/share/java/apache-ant/apache-ant-1.9.6
+ENV ANT_HOME /usr/share/java/apache-ant/apache-ant-1.9.7
 ENV PATH ${PATH}:${ANT_HOME}/bin
+
+ENTRYPOINT ["/opt/zulu-jdk8/bin", "java", "-version"]
