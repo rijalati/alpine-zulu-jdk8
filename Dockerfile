@@ -12,7 +12,7 @@ RUN apk --update --no-cache add curl ca-certificates tar \
     && curl -Ls https://github.com/andyshinn/alpine-pkg-glibc/releases/download/unreleased/glibc-2.23-r1.apk > /tmp/glibc-2.23-r1.apk \
     && apk add /tmp/glibc-2.23-r1.apk
 
-RUN curl -Ls http://cdn.azul.com/zulu/bin/zulu8.13.0.5-jdk8.0.72-linux_x64.tar.gz > /tmp/zulu-jdk8.tar.gz \
+RUN curl -Ls http://cdn.azul.com/zulu/bin/zulu8.15.0.1-jdk8.0.92-linux_x64.tar.gz > /tmp/zulu-jdk8.tar.gz \
     && curl -Ls http://cdn.azul.com/zcek/bin/ZuluJCEPolicies.zip > /tmp/zulu-crypt.zip \
     && mkdir -p /opt/jdk \
     && cd /opt/jdk \
