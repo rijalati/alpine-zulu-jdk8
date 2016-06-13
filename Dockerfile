@@ -17,7 +17,7 @@ RUN curl -Ls http://cdn.azul.com/zulu/bin/zulu8.15.0.1-jdk8.0.92-linux_x64.tar.g
     && mkdir -p /opt/jdk \
     && cd /opt/jdk \
     && tar -xzf /tmp/zulu-jdk8.tar.gz \
-    && mv zulu8.13.0.5-jdk8.0.72-linux_x64 zulu-jdk8 \
+    && mv zulu8.15.0.1-jdk8.0.92-linux_x64 zulu-jdk8 \
     && unzip /tmp/zulu-crypt.zip \
     && cp -f ZuluJCEPolicies/* /opt/jdk/zulu-jdk8/jre/lib/security/ \
     && rm -fr ZuluJCEPolicies/ /tmp/zulu-jdk8.tar.gz /tmp/zulu-crypt.zip
