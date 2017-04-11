@@ -22,7 +22,6 @@ RUN curl -Ls http://cdn.azul.com/zulu/bin/zulu8.20.0.5-jdk8.0.121-linux_x64.tar.
     && unzip /tmp/zulu-crypt.zip \
     && cp -f ZuluJCEPolicies/* /opt/jdk/zulu-jdk8/jre/lib/security/ \
     && rm -fr ZuluJCEPolicies/ /tmp/zulu-jdk8.tar.gz /tmp/zulu-crypt.zip \
-    && rm -f /opt/jdk/zulu-jdk8/src.zip \
     && chown -R root:root /opt/jdk/zulu-jdk8 \
     && cd /opt \
     && curl -Ls http://www-us.apache.org/dist/maven/maven-3/3.5.0/binaries/apache-maven-3.5.0-bin.tar.gz > /tmp/apache-maven-3.5.0-bin.tar.gz \
