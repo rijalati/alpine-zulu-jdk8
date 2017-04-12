@@ -36,7 +36,7 @@ RUN curl -Ls http://www.gtlib.gatech.edu/pub/apache//ant/binaries/apache-ant-1.1
     && mkdir -p /usr/share/java/apache-ant \
     && cd  /usr/share/java/apache-ant \
     && tar -zxf /tmp/apache-ant.tar.gz \
-    && rm -f /tmp/apache-ant.tar.gz
+    && rm -fr /tmp/*
 
 ENV ANT_HOME /usr/share/java/apache-ant/apache-ant-1.10.1
 ENV PATH ${PATH}:${ANT_HOME}/bin
