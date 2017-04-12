@@ -10,7 +10,7 @@ RUN ALPINE_GLIBC_BASE_URL="https://github.com/sgerrand/alpine-pkg-glibc/releases
     wget \
         "https://raw.githubusercontent.com/andyshinn/alpine-pkg-glibc/master/sgerrand.rsa.pub" \
         -O "/etc/apk/keys/sgerrand.rsa.pub" && \
-    wget \
+    cd /tmp wget \
         "$ALPINE_GLIBC_BASE_URL/$ALPINE_GLIBC_PACKAGE_VERSION/$ALPINE_GLIBC_BASE_PACKAGE_FILENAME" \
         "$ALPINE_GLIBC_BASE_URL/$ALPINE_GLIBC_PACKAGE_VERSION/$ALPINE_GLIBC_BIN_PACKAGE_FILENAME" \
         "$ALPINE_GLIBC_BASE_URL/$ALPINE_GLIBC_PACKAGE_VERSION/$ALPINE_GLIBC_I18N_PACKAGE_FILENAME" && \
@@ -29,6 +29,8 @@ RUN ALPINE_GLIBC_BASE_URL="https://github.com/sgerrand/alpine-pkg-glibc/releases
     rm "/root/.wget-hsts" && \
     apk del .build-dependencies && \
     rm \
+        "$ALPINE_GLIBC_BASE_PACKAGE_FILENAME" \
+        "$ALPINE_GLIBC_BIN_PACKAGE_FILENAME" \
         "$ALPINE_GLIBC_I18N_PACKAGE_FILENAME"
 # UTF-8 by default
 ENV LANG C.UTF-8
@@ -53,8 +55,8 @@ RUN apk --update --no-cache add curl ca-certificates tar \
     && curl -Ls http://www-us.apache.org/dist//ant/binaries/apache-ant-1.10.1-bin.tar.gz > /tmp/apache-ant.tar.gz \
     && mkdir -p /usr/share/java/apache-ant \
     && cd  /usr/share/java/apache-ant \
-    && tar -zxf /tmp/apache-ant.tar.gz \
-    && rm -rf ${JAVA_HOME}/*src.zip \
+    && tar -zvxf /tmp/apache-ant.tar.gz \
+    && rm -rvf ${JAVA_HOME}/*src.zip \
            ${JAVA_HOME}/THIRDPARTYLICENSEREADME* \
            ${JAVA_HOME}/lib/missioncontrol \
            ${JAVA_HOME}/lib/visualvm \
@@ -75,6 +77,7 @@ RUN apk --update --no-cache add curl ca-certificates tar \
            ${JAVA_HOME}/lib/amd64/libgstreamer-lite.so \
            ${JAVA_HOME}/lib/amd64/libjavafx*.so \
            ${JAVA_HOME}/lib/amd64/libjfx*.so \
+           ${JAVA_HOME}/demo \
            /var/cache/apk/* \
 /tmp/* \
 && ls -al /tmp
