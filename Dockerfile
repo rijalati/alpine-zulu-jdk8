@@ -36,7 +36,7 @@ RUN curl -Ls http://www.gtlib.gatech.edu/pub/apache//ant/binaries/apache-ant-1.1
     && mkdir -p /usr/share/java/apache-ant \
     && cd  /usr/share/java/apache-ant \
     && tar -zxf /tmp/apache-ant.tar.gz \
-    && rm -fr /tmp/*
+    && rm -fr /tmp/apache-ant.tar.gz /tmp/apache-maven-3.5.0-bin.tar.gz /tmp/glibc-2.25-r0.apk 
 
 ENV ANT_HOME /usr/share/java/apache-ant/apache-ant-1.10.1
 ENV PATH ${PATH}:${ANT_HOME}/bin
