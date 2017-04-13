@@ -2,8 +2,11 @@ FROM alpine:3.5
 MAINTAINER rijalati@gmail.com
 
 # UTF-8 by default
-ENV LANG C.UTF-8
-ENV LC_ALL C.UTF-8
+ENV LANG=C.UTF-8 \
+LC_ALL=C.UTF-8 \
+JAVA_HOME=/opt/jdk/zulu-jdk8 \
+ANT_HOME=/usr/share/java/apache-ant/apache-ant-1.10.1
+ENV PATH=${PATH}:${JAVA_HOME}/bin:/opt/bin:${ANT_HOME}/bin
 COPY xlist /tmp/
 RUN ALPINE_GLIBC_BASE_URL="https://github.com/sgerrand/alpine-pkg-glibc/releases/download" && \
     ALPINE_GLIBC_PACKAGE_VERSION="2.25-r0" && \
@@ -57,11 +60,5 @@ RUN ALPINE_GLIBC_BASE_URL="https://github.com/sgerrand/alpine-pkg-glibc/releases
     && chown -R root:root /opt/jdk/zulu-jdk8 \
     && ls -al /tmp \
     && rm -fr /var/cache/apk/* /tmp/*
-
-
-ENV JAVA_HOME=/opt/jdk/zulu-jdk8
-ENV PATH=${PATH}:${JAVA_HOME}/bin:/opt/bin
-ENV ANT_HOME /usr/share/java/apache-ant/apache-ant-1.10.1
-ENV PATH ${PATH}:${ANT_HOME}/bin
 
 ENTRYPOINT ["/opt/jdk/zulu-jdk8/bin/java", "-version"]
