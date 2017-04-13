@@ -99,15 +99,15 @@ RUN set -vex \
            ${JAVA_HOME}/jre/lib/amd64/libglass.so \
            ${JAVA_HOME}/jre/lib/amd64/libgstreamer-lite.so \
            ${JAVA_HOME}/jre/lib/amd64/libjavafx*.so \
-           ${JAVA_HOME}/jre/lib/amd64/libjfx*.so && \
+           ${JAVA_HOME}/jre/lib/amd64/libjfx*.so \
            ${JAVA_HOME}/jre/bin/jjs \
-           "${JAVA_HOME}/jre/bin/orbd" \
+           ${JAVA_HOME}/jre/bin/orbd \
            ${JAVA_HOME}/jre/bin/pack200 \
            ${JAVA_HOME}/jre/bin/unpack200 \
            ${JAVA_HOME}/jre/lib/ext/nashorn.jar \
-/var/cache/apk/* \
-/tmp/* \
-&& ls -al /tmp
+           /var/cache/apk/* \
+           /tmp/* \
+           && ls -al /tmp
 
 ENV ANT_HOME /usr/share/java/apache-ant/apache-ant-1.10.1
 ENV PATH ${PATH}:${ANT_HOME}/bin
