@@ -54,7 +54,8 @@ RUN apk --update --no-cache add curl ca-certificates tar \
 ENV JAVA_HOME=/opt/jdk/zulu-jdk8
 ENV PATH=${PATH}:${JAVA_HOME}/bin:/opt/bin
 
-RUN cd /opt \
+RUN set -vex \
+    && cd /opt \
     && curl -Ls http://www-us.apache.org/dist/maven/maven-3/3.5.0/binaries/apache-maven-3.5.0-bin.tar.gz > /tmp/apache-maven-3.5.0-bin.tar.gz \
     && tar --strip-components=1 -xf /tmp/apache-maven-3.5.0-bin.tar.gz \
     && curl -Ls http://www-us.apache.org/dist//ant/binaries/apache-ant-1.10.1-bin.tar.gz > /tmp/apache-ant.tar.gz \
