@@ -62,7 +62,7 @@ RUN cd /opt \
     && cd  /usr/share/java/apache-ant \
     && tar --exclude=apache-ant-1.10.1/manual* -zvxf /tmp/apache-ant.tar.gz \
     && rm -rvf ${JAVA_HOME}/*src.zip \
-           ${JAVA_HOME}/THIRDPARTYLICENSEREADME* \
+           ${JAVA_HOME}/THIRD_PARTY_README \
            ${JAVA_HOME}/lib/missioncontrol \
            ${JAVA_HOME}/lib/visualvm \
            ${JAVA_HOME}/lib/*javafx* \
