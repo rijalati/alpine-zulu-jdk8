@@ -42,11 +42,11 @@ RUN apk --update --no-cache add curl ca-certificates tar \
     && mkdir -p /opt/jdk \
     && cd /opt/jdk \
     && curl -Ls http://cdn.azul.com/zulu/bin/zulu8.20.0.5-jdk8.0.121-linux_x64.tar.gz \
-    | tar --transform=s/zulu8.20.0.5-jdk8.0.121-linux_x64/zulu-jdk8/g -xzvf - \
+    | tar --transform="s/zulu8.20.0.5-jdk8.0.121-linux_x64/zulu-jdk8/g" -xzvf - \
     && curl -Ls http://cdn.azul.com/zcek/bin/ZuluJCEPolicies.zip \
-    | unzip - \
+    | gunzip - \
     && cp -f ZuluJCEPolicies/* /opt/jdk/zulu-jdk8/jre/lib/security/ \
-    && rm -fr ZuluJCEPolicies/ /tmp/zulu-jdk8.tar.gz /tmp/zulu-crypt.zip \
+    && rm -fr ZuluJCEPolicies/ \
     && chown -R root:root /opt/jdk/zulu-jdk8
 
 ENV JAVA_HOME=/opt/jdk/zulu-jdk8
