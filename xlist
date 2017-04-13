@@ -40,6 +40,10 @@ zulu8.20.0.5-jdk8.0.121-linux_x64/jre/bin/orbd
 zulu8.20.0.5-jdk8.0.121-linux_x64/jre/bin/pack200
 zulu8.20.0.5-jdk8.0.121-linux_x64/jre/bin/unpack200
 zulu8.20.0.5-jdk8.0.121-linux_x64/jre/lib/ext/nashorn.jar
+zulu8.20.0.5-jdk8.0.121-linux_x64/bin/jjs
+zulu8.20.0.5-jdk8.0.121-linux_x64/bin/orbd
+zulu8.20.0.5-jdk8.0.121-linux_x64/bin/pack200
+zulu8.20.0.5-jdk8.0.121-linux_x64/bin/unpack200
 zulu8.20.0.5-jdk8.0.121-linux_x64/demo/*
 zulu8.20.0.5-jdk8.0.121-linux_x64/sample/*
 zulu8.20.0.5-jdk8.0.121-linux_x64/man/*
