@@ -42,13 +42,15 @@ RUN apk --update --no-cache add curl ca-certificates tar \
     && mkdir -p /opt/jdk \
     && cd /opt/jdk \
     && curl -Ls http://cdn.azul.com/zulu/bin/zulu8.20.0.5-jdk8.0.121-linux_x64.tar.gz \
-    | tar --transform="s/zulu8.20.0.5-jdk8.0.121-linux_x64/zulu-jdk8/g" -xzvf - \
-    && curl -Ls http://cdn.azul.com/zcek/bin/ZuluJCEPolicies.zip \
-    | zcat > ./ \
-    && ls -al \
-    && cp -f ZuluJCEPolicies/* /opt/jdk/zulu-jdk8/jre/lib/security/ \
-    && rm -fr ZuluJCEPolicies/ \
-    && chown -R root:root /opt/jdk/zulu-jdk8
+    | tar --exclude=zulu8.20.0.5-jdk8.0.121-linux_x64/demo/* \
+          --exclude=zulu8.20.0.5-jdk8.0.121-linux_x64/sample/* \
+          --exclude=zulu8.20.0.5-jdk8.0.121-linux_x64/man/* \
+          --transform=s/zulu8.20.0.5-jdk8.0.121-linux_x64/zulu-jdk8/g -xzvf - \
+    && curl -Ls http://cdn.azul.com/zcek/bin/ZuluJCEPolicies.zip > ZuluJCEPolicies.zip \
+    && unzip ZuluJCEPolicies.zip \
+    && cp -vr ZuluJCEPolicies/* /opt/jdk/zulu-jdk8/jre/lib/security/ \
+    && ls -al /opt/jdk/zulu-jdk8/jre/lib/security/ \
+    && rm -fr ZuluJCEPolicies/
 
 ENV JAVA_HOME=/opt/jdk/zulu-jdk8
 ENV PATH=${PATH}:${JAVA_HOME}/bin:/opt/bin
@@ -56,12 +58,13 @@ ENV PATH=${PATH}:${JAVA_HOME}/bin:/opt/bin
 RUN set -vex \
     && cd /opt \
     && curl -Ls http://www-us.apache.org/dist/maven/maven-3/3.5.0/binaries/apache-maven-3.5.0-bin.tar.gz \
-    | tar --strip-components=1 -xvzf - \
+    | tar --strip-components=1 -xzf - \
     && mkdir -p /usr/share/java/apache-ant \
     && cd  /usr/share/java/apache-ant \
     && curl -Ls http://www-us.apache.org/dist//ant/binaries/apache-ant-1.10.1-bin.tar.gz \
-    | tar --exclude=apache-ant-1.10.1/manual* -zvxf - \
-    && rm -rf ${JAVA_HOME}/*src.zip \
+    | tar --exclude=apache-ant-1.10.1/manual* -zxf - \
+    && chown -R root:root /opt/jdk/zulu-jdk8 \
+    && rm -fr ${JAVA_HOME}/*src.zip \
            ${JAVA_HOME}/THIRD_PARTY_README \
            ${JAVA_HOME}/lib/missioncontrol \
            ${JAVA_HOME}/lib/visualvm \
@@ -82,8 +85,6 @@ RUN set -vex \
            ${JAVA_HOME}/lib/amd64/libgstreamer-lite.so \
            ${JAVA_HOME}/lib/amd64/libjavafx*.so \
            ${JAVA_HOME}/lib/amd64/libjfx*.so \
-           ${JAVA_HOME}/demo/* \
-           ${JAVA_HOME}/sample/* \
            ${JAVA_HOME}/jre/lib/plugin.jar \
            ${JAVA_HOME}/jre/lib/ext/jfxrt.jar \
            ${JAVA_HOME}/jre/bin/javaws \
