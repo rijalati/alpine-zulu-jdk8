@@ -81,8 +81,8 @@ RUN cd /opt \
            ${JAVA_HOME}/lib/amd64/libglass.so \
            ${JAVA_HOME}/lib/amd64/libgstreamer-lite.so \
            ${JAVA_HOME}/lib/amd64/libjavafx*.so \
-           ${JAVA_HOME}/lib/amd64/libjfx*.so && \
-   rm -fvr ${JAVA_HOME}/demo \
+           ${JAVA_HOME}/lib/amd64/libjfx*.so \
+           && rm -rvf ${JAVA_HOME}/demo \
            ${JAVA_HOME}/jre/lib/plugin.jar \
            ${JAVA_HOME}/jre/lib/ext/jfxrt.jar \
            ${JAVA_HOME}/jre/bin/javaws \
