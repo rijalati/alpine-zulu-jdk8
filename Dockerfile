@@ -61,8 +61,8 @@ RUN cd /opt \
     && mkdir -p /usr/share/java/apache-ant \
     && cd  /usr/share/java/apache-ant \
     && tar --exclude=apache-ant-1.10.1/manual* -zvxf /tmp/apache-ant.tar.gz \
-    && rm -rvf ${JAVA_HOME}/*src.zip \
-           ${JAVA_HOME}/THIRD_PARTY_README \
+    && rm -rf ${JAVA_HOME}/*src.zip \
+           ${JAVA_HOME}/THIRD_PARTY_README* \
            ${JAVA_HOME}/lib/missioncontrol \
            ${JAVA_HOME}/lib/visualvm \
            ${JAVA_HOME}/lib/*javafx* \
@@ -82,7 +82,7 @@ RUN cd /opt \
            ${JAVA_HOME}/lib/amd64/libgstreamer-lite.so \
            ${JAVA_HOME}/lib/amd64/libjavafx*.so \
            ${JAVA_HOME}/lib/amd64/libjfx*.so \
-           && rm -rvf ${JAVA_HOME}/demo \
+           && rm -rf ${JAVA_HOME}/demo \
            ${JAVA_HOME}/jre/lib/plugin.jar \
            ${JAVA_HOME}/jre/lib/ext/jfxrt.jar \
            ${JAVA_HOME}/jre/bin/javaws \
