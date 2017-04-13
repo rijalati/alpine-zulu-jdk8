@@ -55,9 +55,8 @@ RUN apk --update --no-cache add curl ca-certificates tar \
     && curl -Ls http://www-us.apache.org/dist//ant/binaries/apache-ant-1.10.1-bin.tar.gz > /tmp/apache-ant.tar.gz \
     && mkdir -p /usr/share/java/apache-ant \
     && cd  /usr/share/java/apache-ant \
-    && tar -zvxf /tmp/apache-ant.tar.gz \
-    && rm -rvf /usr/share/java/apache-ant/apache-ant-1.10.1/manual \
-           ${JAVA_HOME}/*src.zip \
+    && tar --exclude=apache-ant-1.10.1/manual* -zvxf /tmp/apache-ant.tar.gz \
+    && rm -rvf ${JAVA_HOME}/*src.zip \
            ${JAVA_HOME}/THIRDPARTYLICENSEREADME* \
            ${JAVA_HOME}/lib/missioncontrol \
            ${JAVA_HOME}/lib/visualvm \
