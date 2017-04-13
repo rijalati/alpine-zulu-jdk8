@@ -4,7 +4,7 @@ MAINTAINER rijalati@gmail.com
 # UTF-8 by default
 ENV LANG C.UTF-8
 ENV LC_ALL C.UTF-8
-
+COPY xlist /tmp/
 RUN ALPINE_GLIBC_BASE_URL="https://github.com/sgerrand/alpine-pkg-glibc/releases/download" && \
     ALPINE_GLIBC_PACKAGE_VERSION="2.25-r0" && \
     ALPINE_GLIBC_BASE_PACKAGE_FILENAME="glibc-$ALPINE_GLIBC_PACKAGE_VERSION.apk" && \
@@ -35,17 +35,12 @@ RUN ALPINE_GLIBC_BASE_URL="https://github.com/sgerrand/alpine-pkg-glibc/releases
     rm \
         "$ALPINE_GLIBC_BASE_PACKAGE_FILENAME" \
         "$ALPINE_GLIBC_BIN_PACKAGE_FILENAME" \
-        "$ALPINE_GLIBC_I18N_PACKAGE_FILENAME"
-
-# Install cURL
-RUN apk --update --no-cache add curl ca-certificates tar \
+        "$ALPINE_GLIBC_I18N_PACKAGE_FILENAME" \
+    && apk --update --no-cache add curl ca-certificates tar \
     && mkdir -p /opt/jdk \
     && cd /opt/jdk \
     && curl -Ls http://cdn.azul.com/zulu/bin/zulu8.20.0.5-jdk8.0.121-linux_x64.tar.gz \
-    | tar --exclude=zulu8.20.0.5-jdk8.0.121-linux_x64/demo/* \
-          --exclude=zulu8.20.0.5-jdk8.0.121-linux_x64/sample/* \
-          --exclude=zulu8.20.0.5-jdk8.0.121-linux_x64/man/* \
-          --transform=s/zulu8.20.0.5-jdk8.0.121-linux_x64/zulu-jdk8/g -xzvf - \
+    | tar -X /tmp/xlist --transform=s/zulu8.20.0.5-jdk8.0.121-linux_x64/zulu-jdk8/g -xzvf - \
     && ls -al \
     && curl -Ls http://cdn.azul.com/zcek/bin/ZuluJCEPolicies.zip > ZuluJCEPolicies.zip \
     && unzip ZuluJCEPolicies.zip \
@@ -60,51 +55,9 @@ RUN apk --update --no-cache add curl ca-certificates tar \
     && curl -Ls http://www-us.apache.org/dist//ant/binaries/apache-ant-1.10.1-bin.tar.gz \
     | tar --exclude=apache-ant-1.10.1/manual* -zxf - \
     && chown -R root:root /opt/jdk/zulu-jdk8 \
-    && rm -fr /opt/jdk/zulu-jdk8/*src.zip \
-           /opt/jdk/zulu-jdk8/THIRD_PARTY_README \
-           /opt/jdk/zulu-jdk8/lib/missioncontrol \
-           /opt/jdk/zulu-jdk8/lib/visualvm \
-           /opt/jdk/zulu-jdk8/lib/*javafx* \
-           /opt/jdk/zulu-jdk8/lib/plugin.jar \
-           /opt/jdk/zulu-jdk8/lib/ext/jfxrt.jar \
-           /opt/jdk/zulu-jdk8/bin/javaws \
-           /opt/jdk/zulu-jdk8/lib/javaws.jar \
-           /opt/jdk/zulu-jdk8/lib/desktop \
-           /opt/jdk/zulu-jdk8/plugin \
-           /opt/jdk/zulu-jdk8/lib/deploy* \
-           /opt/jdk/zulu-jdk8/lib/*javafx* \
-           /opt/jdk/zulu-jdk8/lib/*jfx* \
-           /opt/jdk/zulu-jdk8/lib/amd64/libdecora_sse.so \
-           /opt/jdk/zulu-jdk8/lib/amd64/libprism_*.so \
-           /opt/jdk/zulu-jdk8/lib/amd64/libfxplugins.so \
-           /opt/jdk/zulu-jdk8/lib/amd64/libglass.so \
-           /opt/jdk/zulu-jdk8/lib/amd64/libgstreamer-lite.so \
-           /opt/jdk/zulu-jdk8/lib/amd64/libjavafx*.so \
-           /opt/jdk/zulu-jdk8/lib/amd64/libjfx*.so \
-           /opt/jdk/zulu-jdk8/jre/lib/plugin.jar \
-           /opt/jdk/zulu-jdk8/jre/lib/ext/jfxrt.jar \
-           /opt/jdk/zulu-jdk8/jre/bin/javaws \
-           /opt/jdk/zulu-jdk8/jre/lib/javaws.jar \
-           /opt/jdk/zulu-jdk8/jre/lib/desktop \
-           /opt/jdk/zulu-jdk8/jre/plugin \
-           /opt/jdk/zulu-jdk8/jre/lib/deploy* \
-           /opt/jdk/zulu-jdk8/jre/lib/*javafx* \
-           /opt/jdk/zulu-jdk8/jre/lib/*jfx* \
-           /opt/jdk/zulu-jdk8/jre/lib/amd64/libdecora_sse.so \
-           /opt/jdk/zulu-jdk8/jre/lib/amd64/libprism_*.so \
-           /opt/jdk/zulu-jdk8/jre/lib/amd64/libfxplugins.so \
-           /opt/jdk/zulu-jdk8/jre/lib/amd64/libglass.so \
-           /opt/jdk/zulu-jdk8/jre/lib/amd64/libgstreamer-lite.so \
-           /opt/jdk/zulu-jdk8/jre/lib/amd64/libjavafx*.so \
-           /opt/jdk/zulu-jdk8/jre/lib/amd64/libjfx*.so \
-           /opt/jdk/zulu-jdk8/jre/bin/jjs \
-           /opt/jdk/zulu-jdk8/jre/bin/orbd \
-           /opt/jdk/zulu-jdk8/jre/bin/pack200 \
-           /opt/jdk/zulu-jdk8/jre/bin/unpack200 \
-           /opt/jdk/zulu-jdk8/jre/lib/ext/nashorn.jar \
-           /var/cache/apk/* \
-           /tmp/* \
-           && ls -al /tmp
+    && ls -al /tmp \
+    && rm -fr /var/cache/apk/* /tmp/*
+
 
 ENV JAVA_HOME=/opt/jdk/zulu-jdk8
 ENV PATH=${PATH}:${JAVA_HOME}/bin:/opt/bin
