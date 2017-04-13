@@ -63,7 +63,7 @@ RUN set -vex \
     && cd  /usr/share/java/apache-ant \
     && tar --exclude=apache-ant-1.10.1/manual* -zvxf /tmp/apache-ant.tar.gz \
     && rm -rf ${JAVA_HOME}/*src.zip \
-           ${JAVA_HOME}/THIRD_PARTY_README* \
+           ${JAVA_HOME}/THIRD_PARTY_README \
            ${JAVA_HOME}/lib/missioncontrol \
            ${JAVA_HOME}/lib/visualvm \
            ${JAVA_HOME}/lib/*javafx* \
@@ -83,7 +83,8 @@ RUN set -vex \
            ${JAVA_HOME}/lib/amd64/libgstreamer-lite.so \
            ${JAVA_HOME}/lib/amd64/libjavafx*.so \
            ${JAVA_HOME}/lib/amd64/libjfx*.so \
-           ${JAVA_HOME}/demo \
+           ${JAVA_HOME}/demo/* \
+           ${JAVA_HOME}/sample/* \
            ${JAVA_HOME}/jre/lib/plugin.jar \
            ${JAVA_HOME}/jre/lib/ext/jfxrt.jar \
            ${JAVA_HOME}/jre/bin/javaws \
