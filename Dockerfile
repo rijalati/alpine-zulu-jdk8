@@ -1,6 +1,10 @@
 FROM alpine:3.5
 MAINTAINER rijalati@gmail.com
 
+# UTF-8 by default
+ENV LANG C.UTF-8
+ENV LC_ALL C.UTF-8
+
 RUN ALPINE_GLIBC_BASE_URL="https://github.com/sgerrand/alpine-pkg-glibc/releases/download" && \
     ALPINE_GLIBC_PACKAGE_VERSION="2.25-r0" && \
     ALPINE_GLIBC_BASE_PACKAGE_FILENAME="glibc-$ALPINE_GLIBC_PACKAGE_VERSION.apk" && \
@@ -32,9 +36,6 @@ RUN ALPINE_GLIBC_BASE_URL="https://github.com/sgerrand/alpine-pkg-glibc/releases
         "$ALPINE_GLIBC_BASE_PACKAGE_FILENAME" \
         "$ALPINE_GLIBC_BIN_PACKAGE_FILENAME" \
         "$ALPINE_GLIBC_I18N_PACKAGE_FILENAME"
-# UTF-8 by default
-ENV LANG C.UTF-8
-ENV LC_ALL C.UTF-8
 
 # Install cURL
 RUN apk --update --no-cache add curl ca-certificates tar \
