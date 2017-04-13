@@ -4,8 +4,7 @@ MAINTAINER rijalati@gmail.com
 # UTF-8 by default
 ENV LANG=C.UTF-8 \
 JAVA_HOME=/opt/jdk/zulu-jdk8 \
-ANT_HOME=/usr/share/java/apache-ant/apache-ant-1.10.1
-ENV PATH=${PATH}:${JAVA_HOME}/bin:/opt/bin:${ANT_HOME}/bin
+PATH=${PATH}:/opt/jdk/zulu-jdk8/bin:/opt/bin
 COPY xlist /tmp/
 RUN ALPINE_GLIBC_BASE_URL="https://github.com/sgerrand/alpine-pkg-glibc/releases/download" && \
     ALPINE_GLIBC_PACKAGE_VERSION="2.25-r0" && \
@@ -47,13 +46,6 @@ RUN ALPINE_GLIBC_BASE_URL="https://github.com/sgerrand/alpine-pkg-glibc/releases
     && unzip ZuluJCEPolicies.zip \
     && cp -vr ZuluJCEPolicies/* /opt/jdk/zulu-jdk8/jre/lib/security/ \
     && rm -fr ZuluJCEPolicies* \
-    && cd /opt \
-    && curl -Ls http://www-us.apache.org/dist/maven/maven-3/3.5.0/binaries/apache-maven-3.5.0-bin.tar.gz \
-    | tar --strip-components=1 -xzf - \
-    && mkdir -p /usr/share/java/apache-ant \
-    && cd  /usr/share/java/apache-ant \
-    && curl -Ls http://www-us.apache.org/dist//ant/binaries/apache-ant-1.10.1-bin.tar.gz \
-    | tar --exclude=apache-ant-1.10.1/manual* -zxf - \
     && chown -R root:root /opt/jdk/zulu-jdk8 \
     && rm -fr /var/cache/apk/* /tmp/*
 
