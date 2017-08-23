@@ -40,8 +40,8 @@ RUN ALPINE_GLIBC_BASE_URL="https://github.com/sgerrand/alpine-pkg-glibc/releases
     && apk --update --no-cache add curl ca-certificates tar \
     && mkdir -p /opt/jdk \
     && cd /opt/jdk \
-    && curl -Ls http://cdn.azul.com/zulu/bin/zulu8.20.0.5-jdk8.0.121-linux_x64.tar.gz \
-    | tar -X /tmp/xlist --transform=s/zulu8.20.0.5-jdk8.0.121-linux_x64/zulu-jdk8/g -xzf - \
+    && curl -Ls http://cdn.azul.com/zulu/bin/zulu8.23.0.3-jdk8.0.144-linux_x64.tar.gz \
+    | tar -X /tmp/xlist --transform=s/zulu8.23.0.3-jdk8.0.144-linux_x64/zulu-jdk8/g -xzf - \
     && curl -Ls http://cdn.azul.com/zcek/bin/ZuluJCEPolicies.zip > ZuluJCEPolicies.zip \
     && unzip ZuluJCEPolicies.zip \
     && cp -vr ZuluJCEPolicies/* /opt/jdk/zulu-jdk8/jre/lib/security/ \
